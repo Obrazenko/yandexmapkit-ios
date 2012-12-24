@@ -46,14 +46,18 @@
     if (view == nil) {
         view = [[YMKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
         view.canShowCallout = YES;
-        
-        UIButton * rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        view.rightCalloutAccessoryView = rightButton;            
     }
     
     [self configureAnnotationView:view forAnnotation:annotation];
     
     return view;
+}
+
+- (YMKCalloutView *)mapView:(YMKMapView *)view calloutViewForAnnotation:(id<YMKAnnotation>)annotation {
+    YMKCalloutView * callout = [YMKCalloutView basicCalloutViewWithAnnotation:annotation];
+    UIButton * rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+    callout.rightView = rightButton;
+    return callout;
 }
 
 - (void)mapView:(YMKMapView *)mapView annotationView:(YMKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
